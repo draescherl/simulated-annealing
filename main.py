@@ -3,7 +3,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import json
 
-from functions import hamilton, metropolis
+from functions import hamilton, simulated_annealing
 
 
 with open('./15_vertices.json') as f:
