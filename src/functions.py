@@ -5,11 +5,13 @@ import math
 import numpy as np
 import matplotlib.pyplot as plt
 
-from .utils import generate_initial_solution, rand
+from .utils import arrays_to_nx_graphs, generate_initial_solution, rand
 
 
 # The fitness function we use is the sum of the weights of the edges
-def fitness(G):
+def fitness(current_solution):
+    print("---------------------------------------")
+    print(current_solution)
     return 0
 
 
@@ -26,8 +28,11 @@ def simulated_annealing(base_graph):
     maxit = 1000
     i = 0
 
+    # Convert the array to a Graph object
+    G = arrays_to_nx_graphs(base_graph)
+
     # Generate a random solution
-    S = generate_initial_solution(base_graph)
+    S = generate_initial_solution(G)
 
     # Copy solution
     Ss = S

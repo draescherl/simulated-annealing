@@ -30,8 +30,7 @@ def rand():
     return random.random()
 
 
-def generate_initial_solution(base_graph):
-    G = nx.from_numpy_matrix(np.array(base_graph))
+def generate_initial_solution(G):
     hamiltonian_cycle = hamilton(G)
     edges = [(hamiltonian_cycle[-1], hamiltonian_cycle[0])]
 
@@ -39,3 +38,7 @@ def generate_initial_solution(base_graph):
         edges.append((hamiltonian_cycle[i], hamiltonian_cycle[i + 1]))
 
     return edges
+
+
+def arrays_to_nx_graphs(base_graph):
+    return nx.from_numpy_matrix(np.array(base_graph))
