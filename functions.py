@@ -39,26 +39,33 @@ def metropolis(temperature, G_current, G_neighbour):
     return math.exp(-(abs(fitness(G_current) - fitness(G_neighbour))) / temperature)
 
 
+def generate_initial_solution():
+    return
+
+
+def get_neighbouring_solution(G):
+    return
+
+
 def simulated_annealing():
-	temperature = random.randrange(150, 500, 1)
-	maxit = 1000
-	i = 0
+    temperature = random.randrange(150, 500, 1)
+    maxit = 1000
+    i = 0
 
-	# Generate a random solution
-	S = nx.Graph()
+    # Generate a random solution
+    S = generate_initial_solution()
 
-	# Copy solution
-	Ss = S
+    # Copy solution
+    Ss = S
 
-	while (i < maxit):
-		# Generate a neighbouring solution to S
-		N = nx.Graph()
-		if fitness(N) < fitness(S) or rand() < metropolis(temperature, S, N):
-			S = N
-		else:
-			Ss = S
-		
-		temperature *= 0.99
-		i += 1
+    while (i < maxit):
+        N = get_neighbouring_solution(S)
+        if fitness(N) < fitness(S) or rand() < metropolis(temperature, S, N):
+            S = N
+        else:
+            Ss = S
 
-	return Ss
+        temperature *= 0.99
+        i += 1
+
+    return Ss
