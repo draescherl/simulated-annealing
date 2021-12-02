@@ -7,12 +7,14 @@ from functions import hamilton, simulated_annealing
 
 
 with open('./15_vertices.json') as f:
-    graph_as_json = json.load(f)['graph']
-    G = nx.from_numpy_matrix(np.array(graph_as_json))
+	json_data = json.load(f)
+	graph = json_data['graph']
+	best_path = json_data['best_path_value']
+	G = nx.from_numpy_matrix(np.array(graph))
 
 
 hamiltonian_cycle = hamilton(G)
-edges = []
+edges = [(hamiltonian_cycle[-1], hamiltonian_cycle[0])]
 for i in range(len(hamiltonian_cycle) - 1):
     edges.append((hamiltonian_cycle[i], hamiltonian_cycle[i + 1]))
 
