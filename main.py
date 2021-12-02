@@ -1,3 +1,4 @@
+from networkx.drawing.layout import shell_layout
 import numpy as np
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -25,5 +26,5 @@ for edge in G.edges():
     else:
         colours.append('k')
 
-nx.draw_networkx(G, pos=nx.circular_layout(G), with_labels=True, edge_color=colours)
+nx.draw_networkx(G, pos=shell_layout(G), arrows=True, edge_color=colours)
 plt.show()
