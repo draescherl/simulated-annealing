@@ -9,4 +9,4 @@ with open('./inputs/15_vertices.json') as f:
     best_path = json_data['best_path_value']
 
 best_path = simulated_annealing(graph)
-visualise_path(graph, best_path)
+#visualise_path(graph, best_path)

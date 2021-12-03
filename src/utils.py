@@ -32,6 +32,7 @@ def rand():
 
 def generate_initial_solution(G):
     hamiltonian_cycle = hamilton(G)
+    # return hamiltonian_cycle
     edges = [(hamiltonian_cycle[-1], hamiltonian_cycle[0])]
 
     for i in range(len(hamiltonian_cycle) - 1):

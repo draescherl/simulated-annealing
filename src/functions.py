@@ -9,18 +9,19 @@ from .utils import arrays_to_nx_graphs, generate_initial_solution, rand
 
 
 # The fitness function we use is the sum of the weights of the edges
-def fitness(current_solution):
-    print("---------------------------------------")
-    print(current_solution)
-    return 0
+def fitness(graph, current_solution):
+    res = 0
+    for edge in current_solution:
+        res += graph.get_edge_data(*edge)['weight']    
+    return res
 
 
 def get_neighbouring_solution(current_solution):
     return current_solution
 
 
-def metropolis(temperature, G_current, G_neighbour):
-    return math.exp(-(abs(fitness(G_current) - fitness(G_neighbour))) / temperature)
+def metropolis(temperature, G, current_solution, neighbouring_solution):
+    return math.exp(-(abs(fitness(G, current_solution) - fitness(G, neighbouring_solution))) / temperature)
 
 
 def simulated_annealing(base_graph):
@@ -39,7 +40,7 @@ def simulated_annealing(base_graph):
 
     while (i < maxit):
         N = get_neighbouring_solution(S)
-        if fitness(N) < fitness(S) or rand() < metropolis(temperature, S, N):
+        if fitness(G, N) < fitness(G, S) or rand() < metropolis(temperature, G, S, N):
             S = N
         else:
             Ss = S
@@ -47,6 +48,7 @@ def simulated_annealing(base_graph):
         temperature *= 0.99
         i += 1
 
+    print('Final fitness value: ' + str(fitness(G, Ss)))
     return Ss
 
 
