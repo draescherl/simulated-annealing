@@ -24,7 +24,7 @@ def metropolis(temperature, G, current_solution, neighbouring_solution):
     return math.exp(-(abs(fitness(G, current_solution) - fitness(G, neighbouring_solution))) / temperature)
 
 
-def simulated_annealing(base_graph):
+def simulated_annealing(base_graph, best_theoretical_value):
     temperature = random.randrange(150, 500, 1)
     maxit = 1000
     i = 0
@@ -48,7 +48,9 @@ def simulated_annealing(base_graph):
         temperature *= 0.99
         i += 1
 
-    print('Final fitness value: ' + str(fitness(G, Ss)))
+    path_value = fitness(G, Ss)
+    print('Final fitness value: ' + str(path_value))
+    print('Difference with best theoretical path: ' + str(path_value - best_theoretical_value))
     return Ss
 
 
