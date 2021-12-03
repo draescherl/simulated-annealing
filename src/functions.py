@@ -60,5 +60,5 @@ def visualise_path(base_graph, best_path):
         else:
             colours.append('k')
 
-    nx.draw_networkx(G, pos=shell_layout(G), arrows=True, edge_color=colours)
+    nx.draw_networkx(G, pos=shell_layout(G), edge_color=colours)
     plt.show()
