@@ -1,9 +1,6 @@
 import random
-import networkx as nx
-from networkx.drawing.layout import shell_layout
 import math
-import numpy as np
-import matplotlib.pyplot as plt
+import os
 
 from .utils import *
 
@@ -12,7 +9,7 @@ from .utils import *
 def fitness(graph, current_solution):
     res = 0
     for edge in current_solution:
-        res += graph.get_edge_data(*edge)['weight']    
+        res += graph.get_edge_data(*edge)['weight']
     return res
 
 
@@ -43,34 +40,28 @@ def simulated_annealing(base_graph, best_theoretical_value):
     # Copy solution
     Ss = S
 
+    os.system('mkdir tmp')
     while (i < maxit):
         N = get_neighbouring_solution(S)
+
         if fitness(G, N) < fitness(G, S) or rand() < metropolis(temperature, G, S, N):
             S = N
         else:
             Ss = S
 
+        if i % 10 == 0:
+            save_image(base_graph, Ss, str(i) + '.jpeg')
+
         temperature *= 0.99
         i += 1
+    os.system('convert -delay 50 -loop 0 tmp/*.jpeg exploration.gif')
+    os.system('rm -rf tmp/')
 
     path_value = fitness(G, Ss)
     print('Final temperature: ' + str(temperature))
     print('Final fitness value: ' + str(path_value))
-    print('Difference with best theoretical path: ' + str(path_value - best_theoretical_value))
-    print('Path:', end = ' ')
+    diff = path_value - best_theoretical_value
+    print('Difference with best theoretical path: ' + str(diff))
+    print('Path:', end=' ')
     print(tuples_to_list(Ss))
     return Ss
-
-
-def visualise_path(base_graph, best_path):
-    G = nx.from_numpy_matrix(np.array(base_graph))
-
-    colours = []
-    for edge in G.edges():
-        if edge in best_path or tuple(reversed(edge)) in best_path:
-            colours.append('red')
-        else:
-            colours.append('k')
-
-    nx.draw_networkx(G, pos=shell_layout(G), edge_color=colours)
-    plt.show()

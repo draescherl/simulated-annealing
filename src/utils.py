@@ -1,6 +1,8 @@
 import random
 import networkx as nx
 import numpy as np
+import matplotlib.pyplot as plt
+from networkx.drawing.layout import shell_layout
 
 
 # Credit : https://gist.github.com/mikkelam/ab7966e7ab1c441f947b
@@ -56,3 +58,31 @@ def generate_initial_solution(G):
 
 def arrays_to_nx_graphs(base_graph):
     return nx.from_numpy_matrix(np.array(base_graph))
+
+
+def create_path_list(best_path, G):
+    colours = []
+    widths = []
+    for edge in G.edges():
+        if edge in best_path or tuple(reversed(edge)) in best_path:
+            colours.append('red')
+            widths.append(2)
+        else:
+            colours.append('k')
+            widths.append(1)
+    return colours, widths
+
+
+def visualise_path(base_graph, best_path):
+    G = nx.from_numpy_matrix(np.array(base_graph))
+    colours, widths = create_path_list(best_path, G)
+    nx.draw_networkx(G, pos=shell_layout(G), edge_color=colours, width=widths)
+    plt.show()
+
+
+def save_image(base_graph, best_path, name):
+    G = nx.from_numpy_matrix(np.array(base_graph))
+    colours, widths = create_path_list(best_path, G)
+    nx.draw_networkx(G, pos=shell_layout(G), edge_color=colours, width=widths)
+    plt.savefig('./tmp/' + name)
+    plt.clf()
