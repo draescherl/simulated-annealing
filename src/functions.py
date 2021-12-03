@@ -5,7 +5,7 @@ import math
 import numpy as np
 import matplotlib.pyplot as plt
 
-from .utils import arrays_to_nx_graphs, generate_initial_solution, rand
+from .utils import *
 
 
 # The fitness function we use is the sum of the weights of the edges
@@ -17,7 +17,11 @@ def fitness(graph, current_solution):
 
 
 def get_neighbouring_solution(current_solution):
-    return current_solution
+    list_of_vertices = tuples_to_list(current_solution)
+    idx = range(len(list_of_vertices))
+    i1, i2 = random.sample(idx, 2)
+    list_of_vertices[i1], list_of_vertices[i2] = list_of_vertices[i2], list_of_vertices[i1]
+    return list_to_tuples(list_of_vertices)
 
 
 def metropolis(temperature, G, current_solution, neighbouring_solution):
@@ -26,6 +30,7 @@ def metropolis(temperature, G, current_solution, neighbouring_solution):
 
 def simulated_annealing(base_graph, best_theoretical_value):
     temperature = random.randrange(150, 500, 1)
+    print('Initial temperature: ' + str(temperature))
     maxit = 1000
     i = 0
 
@@ -49,8 +54,11 @@ def simulated_annealing(base_graph, best_theoretical_value):
         i += 1
 
     path_value = fitness(G, Ss)
+    print('Final temperature: ' + str(temperature))
     print('Final fitness value: ' + str(path_value))
     print('Difference with best theoretical path: ' + str(path_value - best_theoretical_value))
+    print('Path:', end = ' ')
+    print(tuples_to_list(Ss))
     return Ss
 
 

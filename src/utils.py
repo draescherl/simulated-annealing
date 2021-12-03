@@ -30,14 +30,27 @@ def rand():
     return random.random()
 
 
+def tuples_to_list(tuples):
+    res = []
+
+    for t in tuples:
+        res.append(t[0])
+
+    return res
+
+
+def list_to_tuples(list):
+    res = [(list[-1], list[0])]
+
+    for i in range(len(list) - 1):
+        res.append((list[i], list[i + 1]))
+
+    return res
+
+
 def generate_initial_solution(G):
     hamiltonian_cycle = hamilton(G)
-    # return hamiltonian_cycle
-    edges = [(hamiltonian_cycle[-1], hamiltonian_cycle[0])]
-
-    for i in range(len(hamiltonian_cycle) - 1):
-        edges.append((hamiltonian_cycle[i], hamiltonian_cycle[i + 1]))
-
+    edges = list_to_tuples(hamiltonian_cycle)
     return edges
 
 
