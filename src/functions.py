@@ -25,7 +25,7 @@ def metropolis(temperature, G, current_solution, neighbouring_solution):
     return math.exp(-(abs(fitness(G, current_solution) - fitness(G, neighbouring_solution))) / temperature)
 
 
-def simulated_annealing(base_graph, best_theoretical_value):
+def simulated_annealing(base_graph, best_theoretical_value, generate_gif):
     temperature = random.randrange(150, 500, 1)
     print('Initial temperature: ' + str(temperature))
     maxit = 1000
@@ -40,7 +40,7 @@ def simulated_annealing(base_graph, best_theoretical_value):
     # Copy solution
     Ss = S
 
-    os.system('mkdir tmp')
+    if generate_gif: os.system('mkdir tmp')
     while (i < maxit):
         N = get_neighbouring_solution(S)
 
@@ -49,13 +49,14 @@ def simulated_annealing(base_graph, best_theoretical_value):
         else:
             Ss = S
 
-        if i % 10 == 0:
+        if generate_gif and i % 100 == 0:
             save_image(base_graph, Ss, str(i) + '.jpeg')
 
         temperature *= 0.99
         i += 1
-    os.system('convert -delay 50 -loop 0 tmp/*.jpeg exploration.gif')
-    os.system('rm -rf tmp/')
+    if generate_gif:
+        os.system('convert -delay 10 -loop 0 tmp/*.jpeg exploration.gif')
+        os.system('rm -rf tmp/')
 
     path_value = fitness(G, Ss)
     print('Final temperature: ' + str(temperature))

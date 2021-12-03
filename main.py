@@ -9,5 +9,6 @@ with open('./inputs/15_vertices.json') as f:
     graph = np.triu(json_data['graph'])
     best_theoretical_path = json_data['best_path_value']
 
-best_path = simulated_annealing(graph, best_theoretical_path)
+# Set third param to True if you want to generate the exploration GIF
+best_path = simulated_annealing(graph, best_theoretical_path, False)
 visualise_path(graph, best_path)
