@@ -39,9 +39,10 @@ def simulated_annealing(base_graph, best_theoretical_value, generate_gif):
 
     # Copy solution
     Ss = S
+    path_value = fitness(G, Ss)
 
     if generate_gif: os.system('mkdir tmp')
-    while (i < maxit):
+    while path_value > best_theoretical_value and i < maxit:
         N = get_neighbouring_solution(S)
 
         if fitness(G, N) < fitness(G, S) or rand() < metropolis(temperature, G, S, N):
@@ -49,20 +50,20 @@ def simulated_annealing(base_graph, best_theoretical_value, generate_gif):
         else:
             Ss = S
 
+        path_value = fitness(G, Ss)
         if generate_gif and i % 100 == 0:
-            save_image(base_graph, Ss, str(i) + '.jpeg')
+            save_image(base_graph, Ss, i, temperature, path_value, best_theoretical_value)
 
         temperature *= 0.99
         i += 1
     if generate_gif:
-        os.system('convert -delay 10 -loop 0 tmp/*.jpeg exploration.gif')
+        os.system('convert -delay 100 -loop 0 tmp/*.jpeg exploration.gif')
         os.system('rm -rf tmp/')
 
-    path_value = fitness(G, Ss)
     print('Final temperature: ' + str(temperature))
     print('Final fitness value: ' + str(path_value))
     diff = path_value - best_theoretical_value
     print('Difference with best theoretical path: ' + str(diff))
     print('Path:', end=' ')
     print(tuples_to_list(Ss))
-    return Ss
+    return Ss, temperature, path_value, best_theoretical_value

@@ -2,7 +2,6 @@ import random
 import networkx as nx
 import numpy as np
 import matplotlib.pyplot as plt
-from networkx.drawing.layout import shell_layout
 
 
 # Credit : https://gist.github.com/mikkelam/ab7966e7ab1c441f947b
@@ -73,16 +72,27 @@ def create_path_list(best_path, G):
     return colours, widths
 
 
-def visualise_path(base_graph, best_path):
+def visualise_path(base_graph, best_path, temperature, final_fitness, best_theoretical_value):
     G = nx.from_numpy_matrix(np.array(base_graph))
     colours, widths = create_path_list(best_path, G)
-    nx.draw_networkx(G, pos=shell_layout(G), edge_color=colours, width=widths)
+    title = \
+        'T: ' + str(temperature) + '\n' \
+        'Final fitness: ' + str(final_fitness) + ' -- ' \
+        'Theoretical best: ' + str(best_theoretical_value)
+    plt.title(title)
+    nx.draw_circular(G, edge_color=colours, width=widths, with_labels=True)
     plt.show()
 
 
-def save_image(base_graph, best_path, name):
+def save_image(base_graph, best_path, name, temperature, current_fitness, best_theoretical_value):
     G = nx.from_numpy_matrix(np.array(base_graph))
     colours, widths = create_path_list(best_path, G)
-    nx.draw_networkx(G, pos=shell_layout(G), edge_color=colours, width=widths)
-    plt.savefig('./tmp/' + name)
+    title = \
+        'i: ' + str(name) + ' -- T: ' + str(temperature) + '\n' \
+        'Current fitness: ' + str(current_fitness) + ' -- ' \
+        'Theoretical best: ' + str(best_theoretical_value)
+    plt.title(title)
+    nx.draw_circular(G, edge_color=colours, width=widths, label='test')
+    plt.rcParams["figure.figsize"] = (200, 30)
+    plt.savefig('./tmp/' + str(name) + '.jpeg')
     plt.clf()
