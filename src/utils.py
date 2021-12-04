@@ -5,9 +5,9 @@ import matplotlib.pyplot as plt
 
 
 # Credit : https://gist.github.com/mikkelam/ab7966e7ab1c441f947b
-def hamilton(G):
-    F = [(G, [list(G.nodes())[0]])]
-    n = G.number_of_nodes()
+def hamilton(graph):
+    F = [(graph, [list(graph.nodes())[0]])]
+    n = graph.number_of_nodes()
     while F:
         graph, path = F.pop()
         confs = []
@@ -77,8 +77,9 @@ def visualise_path(base_graph, best_path, temperature, final_fitness, best_theor
     colours, widths = create_path_list(best_path, G)
     title = \
         'T: ' + str(temperature) + '\n' \
-        'Final fitness: ' + str(final_fitness) + ' -- ' \
-        'Theoretical best: ' + str(best_theoretical_value)
+                                   'Final fitness: ' + str(final_fitness) + ' -- ' \
+                                                                            'Theoretical best: ' + str(
+            best_theoretical_value)
     plt.title(title)
     nx.draw_circular(G, edge_color=colours, width=widths, with_labels=True)
     plt.show()
@@ -89,8 +90,9 @@ def save_image(base_graph, best_path, name, temperature, current_fitness, best_t
     colours, widths = create_path_list(best_path, G)
     title = \
         'i: ' + str(name) + ' -- T: ' + str(temperature) + '\n' \
-        'Current fitness: ' + str(current_fitness) + ' -- ' \
-        'Theoretical best: ' + str(best_theoretical_value)
+                                                           'Current fitness: ' + str(current_fitness) + ' -- ' \
+                                                                                                        'Theoretical best: ' + str(
+            best_theoretical_value)
     plt.title(title)
     nx.draw_circular(G, edge_color=colours, width=widths, label='test')
     plt.rcParams["figure.figsize"] = (200, 30)

@@ -35,10 +35,7 @@ def simulated_annealing(base_graph, best_theoretical_value, generate_gif):
     G = arrays_to_nx_graphs(base_graph)
 
     # Generate a random solution
-    S = generate_initial_solution(G)
-
-    # Copy solution
-    Ss = S
+    S = Ss = generate_initial_solution(G)
     path_value = fitness(G, Ss)
 
     if generate_gif: os.system('mkdir tmp')
