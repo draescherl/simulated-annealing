@@ -68,7 +68,7 @@ def handle_visualisation(show_final: bool, generate_gif: bool, output: Dict[str,
     path = edges_to_vertices(output['solution'])
     fitness = output['final_fitness']
     best = output['best_fitness']
-    output_string = f'Computed path: {path}\nIt\'s fitness: {fitness}\nBest possible fitness: {best}'
+    output_string = f'Computed path: {path}\nIts fitness: {fitness}\nBest possible fitness: {best}'
     print(output_string)
     if show_final:
         visualise_path(output['input'], output['solution'], output['final_temperature'], output['final_fitness'], output['best_fitness'])
