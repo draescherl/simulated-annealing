@@ -39,5 +39,5 @@ These can all be combined. By default, the program will output the essential inf
 
 Here is an example GIF : <br>
 <p align="center">
-  <img src="[http://some_place.com/image.png](https://github.com/draescherl/simulated-annealing/blob/master/example.gif)" />
+  <img src="https://github.com/draescherl/simulated-annealing/blob/master/example.gif" />
 </p>
