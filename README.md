@@ -37,7 +37,7 @@ There are 3 arguments available for this program :
 
 These can all be combined. By default, the program will output the essential information to the terminal and use the `inputs/default.json` file. <br>
 
-Here is an example GIF : <br>
+Here is an example GIF for the default graph : <br>
 <p align="center">
   <img src="https://github.com/draescherl/simulated-annealing/blob/master/example.gif" />
 </p>
