@@ -11,7 +11,7 @@ def get_edge_colours_and_widths(graph: nx.Graph, path: List[Tuple[int, int]]) ->
     """
     Get properties for plotting the graph.
 
-    When using networkx's graph visualisation tool it is possible to customize
+    When using networkx's graph visualization tool it is possible to customize
     the colour and width of each edge of the graph. This function helps find 
     the values to highlight the path the algorithm is currently checking.
 
@@ -59,12 +59,12 @@ def create_gif(graph: List[List[int]], paths: List[List[Tuple[str]]], frequence:
     os.system('mkdir tmp')
     for i in range(len(paths)):
         if i % frequence == 0:
-            save_image(graph, paths[i]['path'], i, paths[i]['temperature'], paths[i]['value'], best_fitness)
+            save_image(graph, paths[i]['path'], str(i).rjust(len(str(len(paths))), '0'), paths[i]['temperature'], paths[i]['value'], best_fitness)
     os.system('convert -delay 100 -loop 0 tmp/*.jpeg exploration.gif')
     os.system('rm -rf tmp/')
 
 
-def handle_visualisation(show_final: bool, generate_gif: bool, output: Dict[str, Any]) -> void:
+def handle_visualization(show_final: bool, generate_gif: bool, output: Dict[str, Any]) -> void:
     path = edges_to_vertices(output['solution'])
     fitness = output['final_fitness']
     best = output['best_fitness']
