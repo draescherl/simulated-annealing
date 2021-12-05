@@ -7,7 +7,6 @@ from src.visualisation import handle_visualisation
 
 if __name__ == "__main__":
     cli_args = interpret_cli_args(sys.argv)
-    print(cli_args)
     graph, best_fitness = read_file(cli_args['filename'])
     output = simulated_annealing(graph, best_fitness)
     handle_visualisation(cli_args['show_result'], cli_args['generate_gif'], output)

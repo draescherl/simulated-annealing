@@ -50,7 +50,7 @@ def save_image(base_graph, best_path, name: str, temperature: float, current_fit
     title = f'i: {name} -- T: {temperature}\n'
     title += f'Fitness: {current_fitness} -- Best: {best_fitness}'
     plt.title(title)
-    nx.draw_circular(G, edge_color=colours, width=widths)
+    nx.draw_circular(G, edge_color=colours, width=widths, with_labels=True)
     plt.savefig('./tmp/' + str(name) + '.jpeg')
     plt.clf()
 
@@ -73,5 +73,4 @@ def handle_visualisation(show_final: bool, generate_gif: bool, output: Dict[str,
     if show_final:
         visualise_path(output['input'], output['solution'], output['final_temperature'], output['final_fitness'], output['best_fitness'])
     if generate_gif:
-        print('in other if')
         create_gif(output['input'], output['paths'], 50, output['best_fitness'])
