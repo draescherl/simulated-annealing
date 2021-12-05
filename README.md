@@ -35,4 +35,7 @@ There are 3 arguments available for this program :
 |  `--show-result`      | Ask the program to show you the final solution.                |
 |  `--file=<filename>`  | Specify a custom file, see the `inputs/` folder for templates. |
 
-These can all be combined. By default, the program will output the essential information to the terminal and use the `inputs/default.json` file.
+These can all be combined. By default, the program will output the essential information to the terminal and use the `inputs/default.json` file. <br>
+
+Here is an example GIF :
+![searching](https://github.com/draescherl/simulated-annealing/blob/master/example.gif)
