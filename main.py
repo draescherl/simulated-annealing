@@ -2,7 +2,7 @@ import json
 import numpy as np
 import sys
 
-from src.functions import simulated_annealing, visualise_path
+from solver import simulated_annealing, visualise_path
 from src.cli import interpret_cli_args
 
 with open('./inputs/15_vertices.json') as f:
