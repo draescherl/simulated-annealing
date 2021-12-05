@@ -42,7 +42,7 @@ def simulated_annealing(base_graph, best_theoretical_value, generate_gif):
     while path_value > best_theoretical_value and i < maxit:
         N = get_neighbouring_solution(S)
 
-        if fitness(G, N) < fitness(G, S) or rand() < metropolis(temperature, G, S, N):
+        if fitness(G, N) < fitness(G, S) or random.random() < metropolis(temperature, G, S, N):
             S = N
         else:
             Ss = S

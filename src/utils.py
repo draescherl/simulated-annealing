@@ -1,4 +1,3 @@
-import random
 import networkx as nx
 import numpy as np
 import matplotlib.pyplot as plt
@@ -25,10 +24,6 @@ def hamilton(graph):
             else:
                 F.append((g, p))
     return None
-
-
-def rand():
-    return random.random()
 
 
 def tuples_to_list(tuples):
