@@ -38,7 +38,7 @@ def visualise_path(base_graph, best_path, temperature, fitness, best_fitness) ->
     graph = matrix_to_graph(base_graph)
     colours, widths = get_edge_colours_and_widths(graph, best_path)
     title = f'T: {temperature}\n'
-    title += f'Fitness: {fitness} -- Best: {best_fitness}'
+    title += f'Fitness: {fitness:.3f} -- Best: {best_fitness}'
     plt.title(title)
     nx.draw_circular(graph, edge_color=colours, width=widths, with_labels=True)
     plt.show()
@@ -47,7 +47,7 @@ def visualise_path(base_graph, best_path, temperature, fitness, best_fitness) ->
 def save_image(base_graph, best_path, name: str, temperature: float, current_fitness: int, best_fitness: int) -> void:
     G = matrix_to_graph(base_graph)
     colours, widths = get_edge_colours_and_widths(G, best_path)
-    title = f'i: {name} -- T: {temperature}\n'
+    title = f'i: {name} -- T: {temperature:.3f}\n'
     title += f'Fitness: {current_fitness} -- Best: {best_fitness}'
     plt.title(title)
     nx.draw_circular(G, edge_color=colours, width=widths, with_labels=True)
