@@ -1,0 +1,3 @@
+add arg to change input file type (coordinates/weigths)
+change language
+better condition to stop

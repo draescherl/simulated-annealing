@@ -27,50 +27,50 @@ def get_edge_colours_and_widths(graph: nx.Graph, path: List[Tuple[int, int]]) ->
     for edge in graph.edges():
         if edge in path or tuple(reversed(edge)) in path:
             colours.append('red')
-            widths.append(2)
+            widths.append(0.5)
         else:
             colours.append('k')
-            widths.append(1)
+            widths.append(0)
     return colours, widths
 
 
-def visualise_path(base_graph, best_path, temperature, fitness, best_fitness) -> void:
+def visualise_path(base_graph, best_path, temperature, fitness, best_fitness, coordinates) -> void:
     graph = matrix_to_graph(base_graph)
     colours, widths = get_edge_colours_and_widths(graph, best_path)
     title = f'T: {temperature}\n'
     title += f'Fitness: {fitness:.3f} -- Best: {best_fitness}'
     plt.title(title)
-    nx.draw_circular(graph, edge_color=colours, width=widths, with_labels=True)
+    nx.draw(graph, pos=coordinates, edge_color=colours, width=widths, with_labels=False, node_size=1)
     plt.show()
 
 
-def save_image(base_graph, best_path, name: str, temperature: float, current_fitness: int, best_fitness: int) -> void:
+def save_image(base_graph, best_path, name: str, temperature: float, current_fitness: int, best_fitness: int, coordinates) -> void:
     G = matrix_to_graph(base_graph)
     colours, widths = get_edge_colours_and_widths(G, best_path)
     title = f'i: {name} -- T: {temperature:.3f}\n'
     title += f'Fitness: {current_fitness} -- Best: {best_fitness}'
     plt.title(title)
-    nx.draw_circular(G, edge_color=colours, width=widths, with_labels=True)
+    nx.draw(G, pos=coordinates, edge_color=colours, width=widths, with_labels=False, node_size=1)
     plt.savefig('./tmp/' + str(name) + '.jpeg')
     plt.clf()
 
 
-def create_gif(graph: List[List[int]], paths: List[List[Tuple[str]]], frequence: int, best_fitness: int) -> void:
+def create_gif(graph: List[List[int]], paths: List[List[Tuple[str]]], frequence: int, best_fitness: int, coordinates) -> void:
     os.system('mkdir tmp')
     for i in range(len(paths)):
         if i % frequence == 0:
-            save_image(graph, paths[i]['path'], str(i).rjust(len(str(len(paths))), '0'), paths[i]['temperature'], paths[i]['value'], best_fitness)
+            save_image(graph, paths[i]['path'], str(i).rjust(len(str(len(paths))), '0'), paths[i]['temperature'], paths[i]['value'], best_fitness, coordinates)
     os.system('convert -delay 100 -loop 0 tmp/*.jpeg exploration.gif')
     os.system('rm -rf tmp/')
 
 
-def handle_visualization(show_final: bool, generate_gif: bool, output: Dict[str, Any]) -> void:
+def handle_visualization(show_final: bool, generate_gif: bool, output: Dict[str, Any], coordinates) -> void:
     path = edges_to_vertices(output['solution'])
     fitness = output['final_fitness']
     best = output['best_fitness']
     output_string = f'Computed path: {path}\nIts fitness: {fitness}\nBest possible fitness: {best}'
     print(output_string)
     if show_final:
-        visualise_path(output['input'], output['solution'], output['final_temperature'], output['final_fitness'], output['best_fitness'])
+        visualise_path(output['input'], output['solution'], output['final_temperature'], output['final_fitness'], output['best_fitness'], coordinates)
     if generate_gif:
-        create_gif(output['input'], output['paths'], 50, output['best_fitness'])
+        create_gif(output['input'], output['paths'], 50, output['best_fitness'], coordinates)

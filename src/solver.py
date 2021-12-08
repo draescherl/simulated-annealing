@@ -28,7 +28,7 @@ def metropolis(t: int, graph: nx.Graph, current_solution: List[Tuple[str, str]],
 
 def simulated_annealing(base_graph, best_fitness: int) -> Dict[str, Any]:
     initial_temperature = temperature = random.randrange(150, 500, 1)
-    maxit = 1000
+    maxit = 10000
     i = 0
 
     # Convert the array to a Graph object
@@ -54,7 +54,7 @@ def simulated_annealing(base_graph, best_fitness: int) -> Dict[str, Any]:
             'temperature': temperature
         }
         paths.append(data)
-        temperature *= 0.99
+        temperature *= 0.99996
         i += 1
 
     return {
